@@ -6,7 +6,8 @@ namespace BankingApp
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Bank b = new Bank();
+            b.AddCustomer(Customer.CreateCustomer("Rohit", 5000, true));
         }
     }
 }
