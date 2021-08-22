@@ -8,45 +8,48 @@ namespace BankingApp
     {
         private string name;
         private int accountNumber;
-        private decimal balance;
+        private double balance;
         private bool isPrime;
 
-        public string Name 
-        { 
+        public string Name
+        {
             get { return name; }
-            private set { name = value; } 
+            private set { name = value; }
         }
-        public  int AccountNumber 
-        { 
+        public int AccountNumber
+        {
             get { return accountNumber; }
             set { accountNumber = value; }
         }
-        public decimal Balance 
-        { 
+        public double Balance
+        {
             get { return balance; }
             private set { balance = value; }
         }
 
-        public bool IsPrime
-        {
-            get { return isPrime; }
-            set { isPrime = value; }
-        }
-
         private static int accountNumberSeed = 121;
 
-        private Customer(string Name, decimal Balance, bool IsPrime)
+        private Customer(string Name, double Balance)
         {
             this.Name = Name;
-            this.IsPrime = IsPrime;
             this.AccountNumber = accountNumberSeed;
             this.Balance = Balance;
-            accountNumberSeed += (234 % 7)+2;
+            accountNumberSeed++;
         }
 
-        public static Customer CreateCustomer(string Name, decimal Balance, bool IsPrime)
+        public void Deposit(double amount)
         {
-            return new Customer(Name, Balance, IsPrime);
+            this.Balance += amount;
+        }
+
+        public void Withdraw(double amount)
+        {
+            this.Balance -= amount;
+        }
+
+        public static Customer CreateCustomer(string Name, double Balance)
+        {
+            return new Customer(Name, Balance);
         }
     }
 }

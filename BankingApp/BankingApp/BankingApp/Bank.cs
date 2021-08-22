@@ -7,20 +7,31 @@ namespace BankingApp
 {
     public class Bank
     {
-        public string Name { get; set; }
-        public string BranchName { get; set; }
+        private string name;
+        private string branchName;
+        public string Name { 
+            get { return name; }
+            private set { name = value; } 
+        }
+        public string BranchName { 
+            get { return branchName; }
+            private set { this.branchName = value; }
+        }
         public List<Customer> ListOfCustomers;
-        public Bank()
+        public Bank(string Name, string BranchName)
         {
+            this.BranchName = BranchName;
+            this.Name = Name;
             ListOfCustomers = new List<Customer>();
         }
 
         public bool AddCustomer(Customer customer)
         {
-            if(/*ListOfCustomers == null ||*/ FindCustomer(customer) == null)
+            var cust = FindCustomer(customer.AccountNumber);
+            if (cust == null)
             {
                 ListOfCustomers.Add(customer);
-                Console.WriteLine("Account created successfully");
+                Console.WriteLine($"Account for {customer.Name} created successfully\nYour account number is {customer.AccountNumber}\n");
                 return true;
             }
 
@@ -28,9 +39,42 @@ namespace BankingApp
             return false;
         }
 
-        private IEnumerable<Customer> FindCustomer(Customer customer)
+        private Customer FindCustomer(int accountNumber)
         {
-            return (IEnumerable<Customer>)ListOfCustomers.Where(c => c.AccountNumber == customer.AccountNumber).FirstOrDefault();
+            return ListOfCustomers.Where(c => c.AccountNumber == accountNumber).FirstOrDefault();
+        }
+
+        public bool Deposit(int accountNumber, double amount)
+        {
+            var customer = FindCustomer(accountNumber);
+            if(amount > 0)
+            {
+                customer.Deposit(amount);
+                Console.WriteLine($"Amount of Rs.{amount} deposited successfully.");
+                return true;
+            }
+            Console.WriteLine("Failed to deposit amount. Enter a positive amount.");
+            return false;
+        }
+
+        public bool Withdraw(int accountNumber, double amount)
+        {
+            var customer = FindCustomer(accountNumber);
+            if (amount > 0 && customer.Balance - amount > 0)
+            {
+                customer.Withdraw(amount);
+                Console.WriteLine($"Amount of Rs.{amount} withdrawn successfully.");
+                return true;
+            }
+            Console.WriteLine("Failed to withdraw amount. Not enough money to withdraw\n");
+            return false;
+        }
+
+        public void CheckBalance(int accountNumber)
+        {
+            var customer = FindCustomer(accountNumber);
+            Console.WriteLine($"Name: {customer.Name}");
+            Console.WriteLine($"Balance.: Rs.{customer.Balance}\n");
         }
     }
 }
