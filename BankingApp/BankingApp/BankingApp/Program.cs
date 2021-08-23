@@ -1,10 +1,11 @@
-﻿using System;
+﻿using BankingApp.Services;
+using System;
 
 namespace BankingApp
 {
     class Program
     {
-        static Bank bank = new Bank("NIBM Road", "HDFC");
+        static BankService bank = new BankService(new Bank("NIBM Road", "HDFC"));
         static void Main(string[] args)
         {
             bool quit = false;
@@ -40,7 +41,7 @@ namespace BankingApp
                         break;
 
                     default:
-                        Console.WriteLine("Enter a a valid choice");
+                        Console.WriteLine("Enter a valid choice");
                         break;
                 }
             }
