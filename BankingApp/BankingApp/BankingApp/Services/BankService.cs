@@ -1,11 +1,12 @@
-﻿using System;
+﻿using BankingApp.ISevices;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
 namespace BankingApp.Services
 {
-    public class BankService
+    public class BankService : IBankService
     {
         private readonly Bank bank;
         public BankService(Bank bank)
