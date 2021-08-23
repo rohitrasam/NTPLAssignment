@@ -47,7 +47,8 @@ namespace BankingApp
         public void DepositWithdraw(double amount)
         {
             Balance += amount;
-            transactions.Add(new Transactions(amount, DateTime.Now));
+            Transactions transaction = new Transactions(amount, DateTime.Now);
+            transactions.Add(transaction);
         }
 
         public static Customer CreateCustomer(string Name, double Balance)
