@@ -9,7 +9,6 @@ namespace BankingApp
         private string name;
         private int accountNumber;
         private double balance;
-        private bool isPrime;
 
         public string Name
         {
