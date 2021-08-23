@@ -9,6 +9,12 @@ namespace BankingApp
         private string name;
         private int accountNumber;
         private double balance;
+        private List<Transactions> transactions;
+
+        public List<Transactions> Transactions
+        {
+            get { return transactions; }
+        }
 
         public string Name
         {
@@ -30,20 +36,18 @@ namespace BankingApp
 
         private Customer(string Name, double Balance)
         {
+            transactions = new List<Transactions>();
             this.Name = Name;
-            this.AccountNumber = accountNumberSeed;
+            AccountNumber = accountNumberSeed;
             this.Balance = Balance;
+            DepositWithdraw(Balance);
             accountNumberSeed++;
         }
 
-        public void Deposit(double amount)
+        public void DepositWithdraw(double amount)
         {
-            this.Balance += amount;
-        }
-
-        public void Withdraw(double amount)
-        {
-            this.Balance -= amount;
+            Balance += amount;
+            transactions.Add(new Transactions(amount, DateTime.Now));
         }
 
         public static Customer CreateCustomer(string Name, double Balance)
