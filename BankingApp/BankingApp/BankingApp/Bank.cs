@@ -15,8 +15,9 @@ namespace BankingApp
         }
         public string BranchName { 
             get { return branchName; }
-            private set { this.branchName = value; }
+            private set { branchName = value; }
         }
+
         public List<Customer> ListOfCustomers;
         public Bank(string Name, string BranchName)
         {
