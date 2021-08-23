@@ -50,7 +50,7 @@ namespace BankingApp
             var customer = FindCustomer(accountNumber);
             if(amount > 0)
             {
-                customer.Deposit(amount);
+                customer.DepositWithdraw(amount);
                 Console.WriteLine($"Amount of Rs.{amount} deposited successfully.");
                 return true;
             }
@@ -63,12 +63,28 @@ namespace BankingApp
             var customer = FindCustomer(accountNumber);
             if (amount > 0 && customer.Balance - amount > 0)
             {
-                customer.Withdraw(amount);
+                customer.DepositWithdraw(-amount);
                 Console.WriteLine($"Amount of Rs.{amount} withdrawn successfully.");
                 return true;
             }
             Console.WriteLine("Failed to withdraw amount. Not enough money to withdraw\n");
             return false;
+        }
+
+        public void ShowAllTransactions(int accountNumber)
+        {
+            var customer = FindCustomer(accountNumber);
+            foreach(var transaction in customer.Transactions)
+            {
+                if (transaction.Amount > 0)
+                {
+                    Console.WriteLine("Rs." + transaction.Amount + " deposited on " + transaction.Date);
+                }
+                else
+                {
+                    Console.WriteLine("Rs." + Math.Abs(transaction.Amount) + " withdrawn on " + transaction.Date);
+                }
+            }
         }
 
         public void CheckBalance(int accountNumber)

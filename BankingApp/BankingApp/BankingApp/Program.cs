@@ -10,7 +10,7 @@ namespace BankingApp
             bool quit = false;
             while(!quit)
             {
-                Console.WriteLine("Choose the following options:");
+                Console.WriteLine("\nChoose the following options:");
                 Options();
                 int choice = Convert.ToInt32(Console.ReadLine());
                 switch (choice)
@@ -32,6 +32,10 @@ namespace BankingApp
                         break;
 
                     case 5:
+                        ShowTransactions();
+                        break;
+
+                    case 6:
                         quit = true;
                         break;
 
@@ -48,9 +52,16 @@ namespace BankingApp
             Console.WriteLine("2. Deposit");
             Console.WriteLine("3. Withdraw");
             Console.WriteLine("4. Check Balance");
-            Console.WriteLine("5. Quit");
+            Console.WriteLine("5. Show Transactions");
+            Console.WriteLine("6. Quit");
             Console.WriteLine();
+        }
 
+        public static void ShowTransactions()
+        {
+            Console.Write("Enter your account number: ");
+            int accountNumber = Convert.ToInt32(Console.ReadLine());
+            bank.ShowAllTransactions(accountNumber);
         }
         public static void CreateAccount()
         {
