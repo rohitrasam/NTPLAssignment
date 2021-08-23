@@ -1,37 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Linq;
+using System.Text;
 
-namespace BankingApp
+namespace BankingApp.Services
 {
-    public class Bank
+    public class BankService
     {
-        private string name;
-        private string branchName;
-        public string Name { 
-            get { return name; }
-            private set { name = value; } 
-        }
-        public string BranchName { 
-            get { return branchName; }
-            private set { branchName = value; }
-        }
-
-        public List<Customer> ListOfCustomers;
-        public Bank(string Name, string BranchName)
+        private readonly Bank bank;
+        public BankService(Bank bank)
         {
-            this.BranchName = BranchName;
-            this.Name = Name;
-            ListOfCustomers = new List<Customer>();
+            this.bank = bank;
         }
-
         public bool AddCustomer(Customer customer)
         {
             var cust = FindCustomer(customer.AccountNumber);
             if (cust == null)
             {
-                ListOfCustomers.Add(customer);
+                bank.ListOfCustomers.Add(customer);
                 Console.WriteLine($"Account for {customer.Name} created successfully\nYour account number is {customer.AccountNumber}\n");
                 return true;
             }
@@ -42,13 +28,13 @@ namespace BankingApp
 
         private Customer FindCustomer(int accountNumber)
         {
-            return ListOfCustomers.Where(c => c.AccountNumber == accountNumber).FirstOrDefault();
+            return bank.ListOfCustomers.Where(c => c.AccountNumber == accountNumber).FirstOrDefault();
         }
 
         public bool Deposit(int accountNumber, double amount)
         {
             var customer = FindCustomer(accountNumber);
-            if(amount > 0)
+            if (amount > 0)
             {
                 customer.DepositWithdraw(amount);
                 Console.WriteLine($"Amount of Rs.{amount} deposited successfully.");
@@ -74,7 +60,7 @@ namespace BankingApp
         public void ShowAllTransactions(int accountNumber)
         {
             var customer = FindCustomer(accountNumber);
-            foreach(var transaction in customer.Transactions)
+            foreach (var transaction in customer.Transactions)
             {
                 if (transaction.Amount > 0)
                 {
@@ -93,5 +79,6 @@ namespace BankingApp
             Console.WriteLine($"Name: {customer.Name}");
             Console.WriteLine($"Balance.: Rs.{customer.Balance}\n");
         }
+
     }
 }
