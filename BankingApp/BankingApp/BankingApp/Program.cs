@@ -1,11 +1,12 @@
-﻿using BankingApp.Services;
+﻿using BankingApp.ISevices;
+using BankingApp.Services;
 using System;
 
 namespace BankingApp
 {
     class Program
     {
-        static BankService bank = new BankService(new Bank("NIBM Road", "HDFC"));
+        static IBankService bank = new BankService(new Bank("NIBM Road", "HDFC"));
         static void Main(string[] args)
         {
             bool quit = false;

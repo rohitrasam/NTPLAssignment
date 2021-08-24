@@ -39,7 +39,6 @@ namespace BankingApp
             transactions = new List<Transactions>();
             this.Name = Name;
             AccountNumber = accountNumberSeed;
-            this.Balance = Balance;
             DepositWithdraw(Balance);
             accountNumberSeed++;
         }
