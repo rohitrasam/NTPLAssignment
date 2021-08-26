@@ -10,7 +10,7 @@ namespace BankingApp
         public string Name { get; private set;  }
         public string BranchName { get; private set; }
 
-        public List<Customer> ListOfCustomers;
+        public List<Customer> ListOfCustomers { get; private set; }
         public Bank(string Name, string BranchName)
         {
             this.BranchName = BranchName;
