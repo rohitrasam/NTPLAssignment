@@ -6,20 +6,12 @@ namespace BankingApp
 {
     public class Transactions
     {
-        private double amount;
-        private DateTime date;
-
         public double Amount
         {
-            get { return amount; }
-            private set { amount = value; }
+            get; private set;
         }
 
-        public DateTime Date
-        {
-            get { return date; }
-            private set { date = value; }
-        }
+        public DateTime Date { get; private set; }
 
         public Transactions(double amount, DateTime date)
         {

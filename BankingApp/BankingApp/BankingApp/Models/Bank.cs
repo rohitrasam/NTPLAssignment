@@ -7,16 +7,8 @@ namespace BankingApp
 {
     public class Bank
     {
-        private string name;
-        private string branchName;
-        public string Name { 
-            get { return name; }
-            private set { name = value; } 
-        }
-        public string BranchName { 
-            get { return branchName; }
-            private set { branchName = value; }
-        }
+        public string Name { get; private set;  }
+        public string BranchName { get; private set; }
 
         public List<Customer> ListOfCustomers;
         public Bank(string Name, string BranchName)

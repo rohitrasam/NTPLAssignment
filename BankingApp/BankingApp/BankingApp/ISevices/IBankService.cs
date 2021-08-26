@@ -7,9 +7,9 @@ namespace BankingApp.ISevices
     public interface IBankService
     {
         bool AddCustomer(Customer customer);
-        bool Deposit(int accountNumber, double amount);
-        bool Withdraw(int accountNumber, double amount);
-        void ShowAllTransactions(int accountNumber);
-        void CheckBalance(int accountNumber);
+        bool Deposit(string accountNumber, double amount);
+        bool Withdraw(string accountNumber, double amount);
+        void ShowAllTransactions(string accountNumber);
+        void CheckBalance(string accountNumber);
     }
 }

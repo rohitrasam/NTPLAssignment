@@ -6,7 +6,7 @@ namespace BankingApp
 {
     class Program
     {
-        static IBankService bank = new BankService(new Bank("NIBM Road", "HDFC"));
+        static IBankService bank = new BankService();
         static void Main(string[] args)
         {
             bool quit = false;
@@ -62,7 +62,7 @@ namespace BankingApp
         public static void ShowTransactions()
         {
             Console.Write("Enter your account number: ");
-            int accountNumber = Convert.ToInt32(Console.ReadLine());
+            string accountNumber = (Console.ReadLine());
             bank.ShowAllTransactions(accountNumber);
         }
         public static void CreateAccount()
@@ -71,22 +71,22 @@ namespace BankingApp
             string name = Console.ReadLine();
             Console.Write("Enter the inital amount to open your account: ");
             double amount = Convert.ToDouble(Console.ReadLine());
-            bank.AddCustomer(Customer.CreateCustomer(name, amount));
+            bank.AddCustomer(new Customer(name, amount));
         }
 
         public static void Deposit()
         {
             Console.Write("Enter your account number: ");
-            int accNo = Convert.ToInt32(Console.ReadLine());
+            string accNo =  Console.ReadLine();
             Console.Write("Enter amount to deposit: ");
-            double amount = Convert.ToInt32(Console.ReadLine());
+            double amount = Convert.ToDouble(Console.ReadLine());
             bank.Deposit(accNo, amount);
         }
 
         public static void Withdraw()
         {
             Console.Write("Enter your account number: ");
-            int accNo = Convert.ToInt32(Console.ReadLine());
+            string accNo = Console.ReadLine();
             Console.Write("Enter amount to withdraw: ");
             double amount = Convert.ToInt32(Console.ReadLine());
             bank.Withdraw(accNo, amount);
@@ -95,7 +95,7 @@ namespace BankingApp
         public static void CheckBalance()
         {
             Console.Write("Enter your account number: ");
-            int accNo = Convert.ToInt32(Console.ReadLine());
+            string accNo = Console.ReadLine();
             bank.CheckBalance(accNo);
         }
     }
