@@ -6,53 +6,29 @@ namespace BankingApp
 {
     public class Customer
     {
-        private string name;
-        private int accountNumber;
-        private double balance;
-        private List<Transactions> transactions;
 
-        public List<Transactions> Transactions
-        {
-            get { return transactions; }
-        }
+        public List<Transactions> Transactions { get; private set; }
 
-        public string Name
-        {
-            get { return name; }
-            private set { name = value; }
-        }
-        public int AccountNumber
-        {
-            get { return accountNumber; }
-            set { accountNumber = value; }
-        }
-        public double Balance
-        {
-            get { return balance; }
-            private set { balance = value; }
-        }
+        public string Name { get; private set;}
+        public string AccountNumber { get; private set;}
+        public double Balance { get; private set; }
 
-        private static int accountNumberSeed = 121;
+        private Guid accountNumberSeed = Guid.NewGuid();
 
-        private Customer(string Name, double Balance)
+        public Customer(string Name, double Balance)
         {
-            transactions = new List<Transactions>();
+            Transactions = new List<Transactions>();
             this.Name = Name;
-            AccountNumber = accountNumberSeed;
-            DepositWithdraw(Balance);
-            accountNumberSeed++;
+            AccountNumber =  accountNumberSeed.ToString().Substring(0, 13);
+            CustomerTransactions(Balance);
+
         }
 
-        public void DepositWithdraw(double amount)
+        public void CustomerTransactions(double amount)
         {
             Balance += amount;
             Transactions transaction = new Transactions(amount, DateTime.Now);
-            transactions.Add(transaction);
-        }
-
-        public static Customer CreateCustomer(string Name, double Balance)
-        {
-            return new Customer(Name, Balance);
+            Transactions.Add(transaction);
         }
     }
 }

@@ -1,18 +1,12 @@
 ﻿using BankingApp.ISevices;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace BankingApp.Services
 {
     public class BankService : IBankService
     {
-        private readonly Bank bank;
-        public BankService(Bank bank)
-        {
-            this.bank = bank;
-        }
+        private readonly Bank bank = new Bank("NIBM Road", "HDFC");
         public bool AddCustomer(Customer customer)
         {
             var cust = FindCustomer(customer.AccountNumber);
@@ -27,17 +21,17 @@ namespace BankingApp.Services
             return false;
         }
 
-        private Customer FindCustomer(int accountNumber)
+        private Customer FindCustomer(string accountNumber)
         {
-            return bank.ListOfCustomers.Where(c => c.AccountNumber == accountNumber).FirstOrDefault();
+            return bank.ListOfCustomers.Where(c => c.AccountNumber.Equals(accountNumber)).FirstOrDefault();
         }
 
-        public bool Deposit(int accountNumber, double amount)
+        public bool Deposit(string accountNumber, double amount)
         {
             var customer = FindCustomer(accountNumber);
             if (amount > 0)
             {
-                customer.DepositWithdraw(amount);
+                customer.CustomerTransactions(amount);
                 Console.WriteLine($"Amount of Rs.{amount} deposited successfully.");
                 return true;
             }
@@ -45,12 +39,12 @@ namespace BankingApp.Services
             return false;
         }
 
-        public bool Withdraw(int accountNumber, double amount)
+        public bool Withdraw(string accountNumber, double amount)
         {
             var customer = FindCustomer(accountNumber);
             if (amount > 0 && customer.Balance - amount > 0)
             {
-                customer.DepositWithdraw(-amount);
+                customer.CustomerTransactions(-amount);
                 Console.WriteLine($"Amount of Rs.{amount} withdrawn successfully.");
                 return true;
             }
@@ -58,7 +52,7 @@ namespace BankingApp.Services
             return false;
         }
 
-        public void ShowAllTransactions(int accountNumber)
+        public void ShowAllTransactions(string accountNumber)
         {
             var customer = FindCustomer(accountNumber);
             foreach (var transaction in customer.Transactions)
@@ -74,7 +68,7 @@ namespace BankingApp.Services
             }
         }
 
-        public void CheckBalance(int accountNumber)
+        public void CheckBalance(string accountNumber)
         {
             var customer = FindCustomer(accountNumber);
             Console.WriteLine($"Name: {customer.Name}");
